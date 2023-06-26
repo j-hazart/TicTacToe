@@ -7,61 +7,45 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <div class="p-4 min-w-screen min-h-screen flex flex-col">
+    <div class="p-4 min-w-screen min-h-screen flex flex-col items-center gap-4">
       <h1 class="text-4xl font-bold capitalize">tic tac toe</h1>
-      <div class="border p-4">
-        <div id="grill" class="flex justify-center">
+      <div id="grill" class="border p-4">
+        <div class="grid-row flex justify-center">
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            1
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            2
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            3
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
         </div>
-        <div class="flex justify-center">
+        <div class="grid-row flex justify-center">
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            4
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            5
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            6
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
         </div>
-        <div class="flex justify-center">
+        <div class="grid-row flex justify-center">
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            7
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            8
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
           <div
-            class="w-28 h-28 flex justify-center items-center border border-black"
-          >
-            9
-          </div>
+            class="row-case w-28 h-28 flex justify-center items-center border border-black"
+          ></div>
         </div>
       </div>
+      <button id="reset" class="border px-4 py-1">reset</button>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
