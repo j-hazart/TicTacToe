@@ -1,4 +1,10 @@
 let sign = "X";
+let computer = false;
+
+const switchPlayer = () => {
+  computer = !computer;
+  reset();
+};
 
 const handleSign = () => {
   if (sign === "X") {
@@ -12,7 +18,7 @@ const rowCases = document.querySelectorAll(".row-case");
 for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
     rowCase.innerText = sign;
-    handleSign();
+    !computer ? handleSign() : computerPlay();
     checkDraw();
     checkWin();
   });
@@ -22,6 +28,7 @@ const reset = () => {
   for (let rowCase of rowCases) {
     rowCase.innerText = "";
   }
+  sign = "X";
 };
 
 const winCases = [
@@ -48,15 +55,27 @@ const checkWin = () => {
   }
 };
 
-const checkDraw = () => {
+const checkEmptyCase = () => {
   let emptyCases = 0;
   for (let rowCase of rowCases) {
     if (rowCase.innerText === "") {
       emptyCases++;
     }
   }
-  if (emptyCases === 0) {
+  return emptyCases;
+};
+
+const checkDraw = () => {
+  if (checkEmptyCase() === 0) {
     alert("Match nul");
     reset();
   }
+};
+
+const computerPlay = () => {
+  let computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
+  while (computerPlayCase.innerText !== "" && checkEmptyCase() !== 0) {
+    computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
+  }
+  computerPlayCase.innerText = "O";
 };
