@@ -19,8 +19,8 @@ for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
     rowCase.innerText = sign;
     !computer ? handleSign() : computerPlay();
-    checkDraw();
-    checkWin();
+    setTimeout(checkDraw, 0);
+    setTimeout(checkWin, 0);
   });
 }
 
