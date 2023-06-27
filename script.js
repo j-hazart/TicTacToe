@@ -20,9 +20,9 @@ const rowCases = document.querySelectorAll(".row-case");
 for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
     rowCase.innerText = sign;
-    !computer ? handleSign() : computerPlay();
     setTimeout(checkWin, 0);
     setTimeout(checkDraw, 0);
+    !computer ? handleSign() : computerPlay();
   });
 }
 
@@ -74,10 +74,51 @@ const checkDraw = () => {
   }
 };
 
+const checkMoves = (move = "best") => {
+  let possibleMoves = [];
+  let letter = "O";
+
+  if (move !== "best") {
+    letter = "X";
+  }
+
+  for (let [a, b, c] of winCases) {
+    const cells = [rowCases[a], rowCases[b], rowCases[c]];
+    const [innerTextA, innerTextB, innerTextC] = cells.map(
+      (cell) => cell.innerText
+    );
+
+    if (
+      (innerTextA === letter && innerTextB === letter && innerTextC === "") ||
+      (innerTextA === letter && innerTextB === "" && innerTextC === letter) ||
+      (innerTextA === "" && innerTextB === letter && innerTextC === letter)
+    ) {
+      cells.forEach((cell) => {
+        if (cell.innerText === "") {
+          possibleMoves.push(cell);
+        }
+      });
+    }
+  }
+
+  return possibleMoves;
+};
+
 const computerPlay = () => {
-  let computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
-  while (computerPlayCase.innerText !== "" && checkEmptyCase() !== 0) {
-    computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
+  let computerPlayCase = rowCases[Math.floor(Math.random() * rowCases.length)];
+
+  if (checkMoves().length !== 0) {
+    computerPlayCase =
+      checkMoves()[Math.floor(Math.random() * checkMoves().length)];
+  } else if (checkMoves("counter").length !== 0) {
+    computerPlayCase =
+      checkMoves("counter")[
+        Math.floor(Math.random() * checkMoves("counter").length)
+      ];
+  } else {
+    while (computerPlayCase.innerText !== "" && checkEmptyCase() !== 0) {
+      computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
+    }
   }
   if (checkEmptyCase() !== 0) {
     computerPlayCase.innerText = "O";
