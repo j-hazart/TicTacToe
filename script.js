@@ -2,7 +2,9 @@ let sign = "X";
 let computer = false;
 
 const switchPlayer = () => {
+  const computerButton = document.querySelector("#computer > span");
   computer = !computer;
+  computerButton.innerText = `${computer ? "activé" : "désactivé"}`;
   reset();
 };
 
@@ -19,8 +21,8 @@ for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
     rowCase.innerText = sign;
     !computer ? handleSign() : computerPlay();
-    setTimeout(checkDraw, 0);
     setTimeout(checkWin, 0);
+    setTimeout(checkDraw, 0);
   });
 }
 
@@ -77,5 +79,7 @@ const computerPlay = () => {
   while (computerPlayCase.innerText !== "" && checkEmptyCase() !== 0) {
     computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
   }
-  computerPlayCase.innerText = "O";
+  if (checkEmptyCase() !== 0) {
+    computerPlayCase.innerText = "O";
+  }
 };
