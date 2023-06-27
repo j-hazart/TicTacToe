@@ -72,6 +72,7 @@ const checkWin = () => {
     ) {
       alert(`${innerTextA} gagne`);
       reset();
+      return true;
     }
   }
 };
@@ -95,6 +96,7 @@ const checkDraw = () => {
   if (checkEmptyCase() === 0) {
     alert("Match nul");
     reset();
+    return true;
   }
 };
 
@@ -144,22 +146,22 @@ const checkMoves = (move = "best") => {
  * best moves then defensive moves and empty spaces.
  */
 const computerPlay = () => {
-  let computerPlayCase = rowCases[Math.floor(Math.random() * rowCases.length)];
+  let computerPlayCase = getRandomElement(rowCases);
 
   if (checkMoves().length !== 0) {
-    computerPlayCase =
-      checkMoves()[Math.floor(Math.random() * checkMoves().length)];
+    computerPlayCase = getRandomElement(checkMoves());
   } else if (checkMoves("counter").length !== 0) {
-    computerPlayCase =
-      checkMoves("counter")[
-        Math.floor(Math.random() * checkMoves("counter").length)
-      ];
+    computerPlayCase = getRandomElement(checkMoves("counter"));
   } else {
     while (computerPlayCase.innerText !== "" && checkEmptyCase() !== 0) {
-      computerPlayCase = rowCases[Math.floor(Math.random() * 9)];
+      computerPlayCase = getRandomElement(rowCases);
     }
   }
   if (checkEmptyCase() !== 0) {
     computerPlayCase.innerText = "O";
   }
+};
+
+const getRandomElement = (tbl) => {
+  return tbl[Math.floor(Math.random() * tbl.length)];
 };
