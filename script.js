@@ -19,10 +19,12 @@ const handleSign = () => {
 const rowCases = document.querySelectorAll(".row-case");
 for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
-    rowCase.innerText = sign;
-    setTimeout(checkWin, 0);
-    setTimeout(checkDraw, 0);
-    !computer ? handleSign() : computerPlay();
+    if (rowCase.innerText === "") {
+      rowCase.innerText = sign;
+      setTimeout(checkWin, 0);
+      setTimeout(checkDraw, 0);
+      !computer ? handleSign() : computerPlay();
+    }
   });
 }
 
@@ -45,13 +47,17 @@ const winCases = [
 ];
 
 const checkWin = () => {
-  for (let winCase of winCases) {
+  for (let [a, b, c] of winCases) {
+    const cells = [rowCases[a], rowCases[b], rowCases[c]];
+    const [innerTextA, innerTextB, innerTextC] = cells.map(
+      (cell) => cell.innerText
+    );
     if (
-      rowCases[winCase[0]].innerText === rowCases[winCase[1]].innerText &&
-      rowCases[winCase[1]].innerText === rowCases[winCase[2]].innerText &&
-      rowCases[winCase[0]].innerText !== ""
+      innerTextA === innerTextB &&
+      innerTextB === innerTextC &&
+      innerTextA !== ""
     ) {
-      alert(`${rowCases[winCase[0]].innerText} gagne`);
+      alert(`${innerTextA} gagne`);
       reset();
     }
   }
