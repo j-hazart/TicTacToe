@@ -1,6 +1,9 @@
 let sign = "X";
 let computer = false;
 
+/**
+ * The function toggles the computer player on and off and updates the corresponding button text.
+ */
 const switchPlayer = () => {
   const computerButton = document.querySelector("#computer > span");
   computer = !computer;
@@ -17,6 +20,12 @@ const handleSign = () => {
 };
 
 const rowCases = document.querySelectorAll(".row-case");
+
+/* This code is adding a click event listener to each element in the `rowCases` array. When a row case
+is clicked, the function checks if the inner text of the clicked element is empty. If it is, it sets
+the inner text of the clicked element to the current `sign` value, then calls `setTimeout` to check
+for a win and a draw. Finally, if the `computer` variable is false, it calls `handleSign()` to
+switch the `sign` value, otherwise it calls `computerPlay()` to make a move for the computer player. */
 for (let rowCase of rowCases) {
   rowCase.addEventListener("click", (e) => {
     if (rowCase.innerText === "") {
@@ -46,6 +55,10 @@ const winCases = [
   [2, 4, 6],
 ];
 
+/**
+ * The function checks if any of the winning combinations in a tic-tac-toe game have been achieved and
+ * alerts the winner's name if so.
+ */
 const checkWin = () => {
   for (let [a, b, c] of winCases) {
     const cells = [rowCases[a], rowCases[b], rowCases[c]];
@@ -63,6 +76,11 @@ const checkWin = () => {
   }
 };
 
+/**
+ * The function checks the number of empty cases in a set of row cases.
+ * @returns The function `checkEmptyCase` is returning the number of empty cases in the `rowCases`
+ * array.
+ */
 const checkEmptyCase = () => {
   let emptyCases = 0;
   for (let rowCase of rowCases) {
@@ -80,12 +98,23 @@ const checkDraw = () => {
   }
 };
 
+/**
+ * The function checks for possible moves in a tic-tac-toe game based on the current symbol and returns
+ * an array of empty cells that could lead to a win.
+ * @param [move=best] - The parameter `move` is optional and has a default value of "best". It is used
+ * to determine which symbol to check for possible moves - "O" if `move` is "best" and "X" if `move` is
+ * not "best".
+ * @returns The function `checkMoves` returns an array of HTML elements that represent the possible
+ * moves that can be made in a game of tic-tac-toe. These moves are determined based on the current
+ * state of the game board and the symbol (either "X" or "O") that represents the player whose turn it
+ * is. If the `move` parameter is not "best", then the function assumes
+ */
 const checkMoves = (move = "best") => {
   let possibleMoves = [];
-  let letter = "O";
+  let symbol = "O";
 
   if (move !== "best") {
-    letter = "X";
+    symbol = "X";
   }
 
   for (let [a, b, c] of winCases) {
@@ -95,9 +124,9 @@ const checkMoves = (move = "best") => {
     );
 
     if (
-      (innerTextA === letter && innerTextB === letter && innerTextC === "") ||
-      (innerTextA === letter && innerTextB === "" && innerTextC === letter) ||
-      (innerTextA === "" && innerTextB === letter && innerTextC === letter)
+      (innerTextA === symbol && innerTextB === symbol && innerTextC === "") ||
+      (innerTextA === symbol && innerTextB === "" && innerTextC === symbol) ||
+      (innerTextA === "" && innerTextB === symbol && innerTextC === symbol)
     ) {
       cells.forEach((cell) => {
         if (cell.innerText === "") {
@@ -110,6 +139,10 @@ const checkMoves = (move = "best") => {
   return possibleMoves;
 };
 
+/**
+ * The function generates a random move for the computer player in a tic-tac-toe game, prioritizing
+ * best moves then defensive moves and empty spaces.
+ */
 const computerPlay = () => {
   let computerPlayCase = rowCases[Math.floor(Math.random() * rowCases.length)];
 
